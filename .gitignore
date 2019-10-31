@@ -30,4 +30,5 @@ build/
 ### VS Code ###
 .vscode/
 
+*.bak
 log/
