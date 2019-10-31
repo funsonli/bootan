@@ -26,10 +26,10 @@ public class RolePermission extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色id")
-    private String roleId;
+    private String roleId = "";
 
     @ApiModelProperty(value = "权限id")
-    private String permissionId;
+    private String permissionId = "";
 
     @Override
     public String toString() {

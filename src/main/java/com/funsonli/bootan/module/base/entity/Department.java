@@ -26,26 +26,23 @@ public class Department extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "部门")
-    private String name;
-
     @ApiModelProperty(value = "父id")
     private String parentId = CommonConstant.DEFAULT_PARENT_ID;
 
     @ApiModelProperty(value = "父名称")
-    private String parentName;
+    private String parentName = "";
 
     @ApiModelProperty(value = "是否有子节点")
     private Boolean isParent = false;
 
     @ApiModelProperty(value = "备注")
-    private String description;
+    private String description = "";
 
     @ApiModelProperty(value = "主负责人")
-    private String head;
+    private String head = "";
 
     @ApiModelProperty(value = "副负责人")
-    private String viceHead;
+    private String viceHead = "";
 
     @Override
     public String toString() {

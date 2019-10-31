@@ -25,14 +25,11 @@ public class DictData extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "名称")
-    private String name;
-
     @ApiModelProperty(value = "值")
-    private String value;
+    private String value = "";
 
     @ApiModelProperty(value = "字典ID")
-    private String dictId;
+    private String dictId = "";
 
     @Override
     public String toString() {

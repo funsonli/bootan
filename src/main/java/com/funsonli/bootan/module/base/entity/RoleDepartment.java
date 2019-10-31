@@ -26,10 +26,10 @@ public class RoleDepartment extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色id")
-    private String roleId;
+    private String roleId = "";
 
     @ApiModelProperty(value = "部门id")
-    private String departmentId;
+    private String departmentId = "";
 
     @Override
     public String toString() {

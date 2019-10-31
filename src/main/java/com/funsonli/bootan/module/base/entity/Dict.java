@@ -25,11 +25,8 @@ public class Dict extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "名称")
-    private String name;
-
     @ApiModelProperty(value = "标题")
-    private String title;
+    private String title = "";
 
     @Override
     public String toString() {

@@ -27,35 +27,32 @@ public class Permission extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "菜单/权限名称")
-    private String name;
-
     @ApiModelProperty(value = "菜单标题")
-    private String title;
+    private String title = "";
 
     @ApiModelProperty(value = "父id")
     private String parentId = CommonConstant.DEFAULT_PARENT_ID;
 
     @ApiModelProperty(value = "说明备注")
-    private String description;
+    private String description = "";
 
     @ApiModelProperty(value = "前端组件")
-    private String component;
+    private String component = "";
 
     @ApiModelProperty(value = "页面路径/资源链接url")
-    private String path;
+    private String path = "";
 
     @ApiModelProperty(value = "图标")
-    private String icon;
+    private String icon = "";
 
     @ApiModelProperty(value = "层级")
-    private Integer level = 0;
+    private Integer level = CommonConstant.PERMISSION_LEVEL_0;
 
     @ApiModelProperty(value = "按钮类型")
-    private String buttonType;
+    private String buttonType = "";
 
     @ApiModelProperty(value = "网页链接")
-    private String redirectUrl;
+    private String redirectUrl = "";
 
     @Transient
     @TableField(exist=false)

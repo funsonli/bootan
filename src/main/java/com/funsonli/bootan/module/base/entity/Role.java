@@ -30,13 +30,13 @@ public class Role extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色名 以ROLE_开头")
-    private String name;
+    private String name = "ROLE_DEFAULT";
 
     @ApiModelProperty(value = "可访问的部门数据权限")
     private Integer departmentType = CommonConstant.ROLE_DEPARTMENT_TYPE;
 
     @ApiModelProperty(value = "备注")
-    private String description;
+    private String description = "";
 
 
     @ApiModelProperty(value = "可访问的部门数据权限")

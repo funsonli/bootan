@@ -26,10 +26,10 @@ public class UserRole extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    private String userId;
+    private String userId = "";
 
     @ApiModelProperty(value = "角色id")
-    private String roleId;
+    private String roleId = "";
 
     @Override
     public String toString() {
