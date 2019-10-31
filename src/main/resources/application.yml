@@ -1,0 +1,152 @@
+server:
+  port: 8686
+
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/bootan?useUnicode=true&characterEncoding=utf-8&useSSL=false&useAffectedRows=true
+    username: root
+    # Jasypt加密 可到common-utils中找到JasyptUtil加解密工具类生成加密结果 格式为ENC(加密结果) 以下解密结果为123456
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    # Druid StatViewServlet配置
+    druid:
+      stat-view-servlet:
+        # 默认true 内置监控页面首页/druid/index.html
+        enabled: true
+        url-pattern: /druid/*
+        # 允许清空统计数据
+        reset-enable: true
+        login-username: root
+        login-password: 123456
+        # IP白名单 多个逗号分隔
+        allow:
+        # IP黑名单
+        deny:
+  messages:
+    basename: i18n/messages
+    cache-second: 3600
+    encoding: UTF-8
+
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+
+  # Redis
+  redis:
+    # 单机版
+    host: 127.0.0.1
+    port: 6379
+    password:
+    # 数据库索引 默认0
+    database: 0
+    # 超时时间 Duration类型 3秒
+    timeout: 3S
+    jedis:
+      pool:
+        ### 连接池最大连接数（使用负值表示没有限制）
+        max-active: 9
+        ### 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        ### 连接池中的最大空闲连接
+        max-idle: 9
+        ### 连接池中的最小空闲连接
+        min-idle: 0
+
+  # boot监控
+  boot:
+    admin:
+      # 修改上下文路径
+      context-path: /bottan/admin
+      client:
+        url: http://127.0.0.1:${server.port}/bottan/admin
+
+# Mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+uploader:
+  type: 1
+  qiniu:
+    accessKey: 0u4ZFxeExxxx
+    secretKey: 3bqtpy8xxxx
+    bucket: jiajiayoupin
+    domain: http://img.xxx.com
+    region: -1
+  aliyun:
+    address: http://static.xxxx.com
+    end-point: oss-cn-shenzhen.aliyuncs.com
+    access-key: LTAIxxxx
+    secret-key: z80txxx
+    bucket: haixxxx
+
+# 忽略鉴权url
+ignored:
+  urls:
+    - /
+    - /no-auth
+    - /bootan/student/**
+    - /bootan/actuator/**
+    - /bootan/admin/**
+    - /druid/**
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /swagger/**
+    - /**/v2/api-docs
+    - /**/*.js
+    - /**/*.css
+    - /**/*.png
+    - /**/*.ico
+
+# Actuator
+management:
+  health:
+    status:
+      http-mapping:
+        DOWN: 200
+        OUT_OF_SERVICE: 200
+        FATAL: 200
+        UNKNOWN: 200
+    # 暂未用到ES 关闭其健康检查
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /bootan/actuator/
+      exposure:
+        include: '*'
+
+# Swagger界面内容配置
+swagger:
+  title: Bootan API接口文档
+  description: Bootan Api Documentation
+  version: 1.0.0
+  termsOfServiceUrl:
+  contact:
+    name: Funson
+    url:
+    email:
+
+# 日志
+logging:
+  # 输出级别
+  level:
+    root: info
+  # 指定路径
+  path: log
+  file:
+    # 最大保存天数
+    max-history: 7
+    # 每个文件最大大小
+    max-size: 8MB
