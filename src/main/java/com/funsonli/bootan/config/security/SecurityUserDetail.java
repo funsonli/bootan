@@ -38,7 +38,9 @@ public class SecurityUserDetail extends User implements UserDetails {
 
         if (null != permissions && 0 < permissions.size()) {
             for (Permission v : permissions) {
-                authorities.add(new SimpleGrantedAuthority(v.getName()));
+                if (v.getName().length() > 0) {
+                    authorities.add(new SimpleGrantedAuthority(v.getName()));
+                }
             }
         }
 

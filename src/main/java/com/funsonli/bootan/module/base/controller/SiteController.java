@@ -1,15 +1,13 @@
 package com.funsonli.bootan.module.base.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.funsonli.bootan.base.BaseController;
 import com.funsonli.bootan.base.BaseResult;
 import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.module.base.entity.User;
 import com.funsonli.bootan.module.base.service.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +37,11 @@ public class SiteController extends BaseController<User, String> {
     @RequestMapping("/bootan/no-auth")
     public BaseResult noAuth() {
         return this.error("no auth");
+    }
+
+    @RequestMapping("/csrf")
+    public BaseResult csrf() {
+        return this.success();
     }
 
     @RequestMapping("/bootan/me")

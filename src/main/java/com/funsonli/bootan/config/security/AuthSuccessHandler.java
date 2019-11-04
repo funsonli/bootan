@@ -1,6 +1,7 @@
 package com.funsonli.bootan.config.security;
 
 import com.funsonli.bootan.base.BaseResult;
+import com.funsonli.bootan.common.annotation.BootanLog;
 import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.util.CommonUtil;
 import com.funsonli.bootan.common.vo.TokenUser;
@@ -36,6 +37,7 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
     private StringRedisTemplate redisTemplate;
 
     @Override
+    @BootanLog(value = "登录系统", type = CommonConstant.LOG_TYPE_LOGIN)
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         String username = ((UserDetails)authentication.getPrincipal()).getUsername();
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) ((UserDetails)authentication.getPrincipal()).getAuthorities();

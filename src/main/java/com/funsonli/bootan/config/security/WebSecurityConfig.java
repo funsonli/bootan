@@ -53,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+
         http.authorizeRequests()
                 // 所有请求都要认证
                 .anyRequest().authenticated()
@@ -60,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 设置登陆页
                 .formLogin()
-                .loginPage("/bootan/auth")
+                .loginPage("/bootan/no-auth")
                 .loginProcessingUrl("/bootan/login")
                 .successHandler(authSuccessHandler)
                 .failureHandler(authFailureHandler)

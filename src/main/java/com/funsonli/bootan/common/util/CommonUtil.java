@@ -46,13 +46,14 @@ public class CommonUtil {
         JSONObject jsonObject = new JSONObject();
         while (iterator.hasNext()) {
             Map.Entry<String, String[]> mapNext = iterator.next();
-            jsonObject.put(mapNext.getKey(), mapNext.getValue());
+            String[] value = mapNext.getValue();
+            if ("password".equals(mapNext.getKey())) {
+                value[0] = "保密";
+            }
+            jsonObject.put(mapNext.getKey(), value);
         }
-        if (jsonObject != null) {
-            return jsonObject.toString();
-        } else {
-            return null;
-        }
+
+        return jsonObject.toString();
     }
 
 }
