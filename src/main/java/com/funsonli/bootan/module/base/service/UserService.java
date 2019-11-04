@@ -26,6 +26,9 @@ public interface UserService extends BaseService<User, String> {
     @Override
     Page<User> findByCondition(User model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    User beforeSave(User entity);
+
     User findByUsername(String username);
 
     List<User> findByDepartmentId(String departmentId);

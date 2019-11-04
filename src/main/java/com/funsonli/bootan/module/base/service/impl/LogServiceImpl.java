@@ -2,7 +2,7 @@ package com.funsonli.bootan.module.base.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.funsonli.bootan.base.BaseService;
+import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.LogDao;
 import com.funsonli.bootan.module.base.entity.Log;
@@ -86,6 +86,35 @@ public class LogServiceImpl implements LogService {
                 return null;
             }
         }, pageable);
+    }
+
+    @Override
+    public Log beforeSave(Log entity) {
+        if (entity.getType() == null) {
+            entity.setType(CommonConstant.LOG_TYPE_ACCESS);
+        }
+        if (entity.getRequestUrl() == null) {
+            entity.setRequestUrl("");
+        }
+        if (entity.getRequestType() == null) {
+            entity.setRequestType("");
+        }
+        if (entity.getRequestParam() == null) {
+            entity.setRequestParam("");
+        }
+        if (entity.getUsername() == null) {
+            entity.setUsername("");
+        }
+        if (entity.getIp() == null) {
+            entity.setIp("");
+        }
+        if (entity.getIpInfo() == null) {
+            entity.setIpInfo("");
+        }
+        if (entity.getCostTime() == null) {
+            entity.setCostTime(0);
+        }
+        return entity;
     }
 
 }

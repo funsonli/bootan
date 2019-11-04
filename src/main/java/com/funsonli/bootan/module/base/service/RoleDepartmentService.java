@@ -24,6 +24,9 @@ public interface RoleDepartmentService extends BaseService<RoleDepartment, Strin
     @Override
     Page<RoleDepartment> findByCondition(RoleDepartment model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    RoleDepartment beforeSave(RoleDepartment entity);
+
     List<RoleDepartment> findByRoleId(String roleId);
 
     void deleteByRoleId(String roleId);

@@ -3,7 +3,6 @@ package com.funsonli.bootan.module.base.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.funsonli.bootan.base.BaseEntity;
-import com.funsonli.bootan.common.constant.CommonConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,17 +29,17 @@ public class Role extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色名 以ROLE_开头")
-    private String name = "ROLE_DEFAULT";
+    private String name;
 
     @ApiModelProperty(value = "可访问的部门数据权限")
-    private Integer departmentType = CommonConstant.ROLE_DEPARTMENT_TYPE;
+    private Integer departmentType;
 
     @ApiModelProperty(value = "备注")
-    private String description = "";
+    private String description;
 
 
     @ApiModelProperty(value = "可访问的部门数据权限")
-    private Integer isDefault = CommonConstant.ROLE_DEFAULT_NO;
+    private Integer isDefault;
 
     @Transient
     @TableField(exist=false)

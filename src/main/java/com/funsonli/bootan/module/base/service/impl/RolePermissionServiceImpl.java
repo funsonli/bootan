@@ -46,6 +46,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
      * @param pageable
      * @return
      */
+    @Override
     public Page<RolePermission> findByCondition(RolePermission model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<RolePermission>() {
             @Nullable
@@ -88,10 +89,23 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }, pageable);
     }
 
+    @Override
+    public RolePermission beforeSave(RolePermission entity) {
+        if (entity.getRoleId() == null) {
+            entity.setRoleId("");
+        }
+        if (entity.getPermissionId() == null) {
+            entity.setPermissionId("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<RolePermission> findByRoleId(String roleId) {
         return modelDao.findByRoleId(roleId);
     }
 
+    @Override
     public void deleteByRoleId(String roleId) {
         modelDao.deleteByRoleId(roleId);
     }

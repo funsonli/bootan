@@ -24,6 +24,9 @@ public interface RolePermissionService extends BaseService<RolePermission, Strin
     @Override
     Page<RolePermission> findByCondition(RolePermission model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    RolePermission beforeSave(RolePermission entity);
+
     List<RolePermission> findByRoleId(String roleId);
 
     void deleteByRoleId(String roleId);

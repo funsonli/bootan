@@ -2,8 +2,6 @@ package com.funsonli.bootan.base;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.funsonli.bootan.common.constant.CommonConstant;
-import com.funsonli.bootan.common.util.SnowFlake;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -36,38 +34,38 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @TableId
     @ApiModelProperty(value = "唯一主键ID | Unique primary key ID")
-    private String id = String.valueOf(SnowFlake.getInstance().nextId());
+    private String id;
 
     @NotFound(action= NotFoundAction.IGNORE)
     @ApiModelProperty(value = "名称")
-    private String name = "";
+    private String name;
 
     @ApiModelProperty(value = "记录状态 | Record Status")
-    private Integer type = CommonConstant.TYPE_DEFAULT;
+    private Integer type;
 
     @ApiModelProperty(value = "排序值 | Record sort order")
-    private Integer sortOrder = CommonConstant.SORT_ORDER_DEFAULT;
+    private Integer sortOrder;
 
     @ApiModelProperty(value = "状态 | Record sort order")
-    private Integer status = CommonConstant.STATUS_ENABLE;
+    private Integer status;
 
     @CreatedDate
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间 | Record created time")
-    private Date createdAt = new Date();
+    private Date createdAt;
 
     @LastModifiedDate
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "更新时间 | Record updated time")
-    private Date updatedAt = new Date();
+    private Date updatedAt;
 
     @ApiModelProperty(value = "创建者 | Record Created by")
-    private String createdBy = "";
+    private String createdBy;
 
     @ApiModelProperty(value = "更新者 | Record updated by")
-    private String updatedBy = "";
+    private String updatedBy;
 
     @Override
     public String toString() {

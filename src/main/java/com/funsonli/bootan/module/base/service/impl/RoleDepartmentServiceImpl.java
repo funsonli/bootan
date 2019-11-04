@@ -45,6 +45,7 @@ public class RoleDepartmentServiceImpl implements RoleDepartmentService {
     * @param pageable
     * @return
     */
+    @Override
     public Page<RoleDepartment> findByCondition(RoleDepartment model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<RoleDepartment>() {
             @Nullable
@@ -87,10 +88,23 @@ public class RoleDepartmentServiceImpl implements RoleDepartmentService {
         }, pageable);
     }
 
+    @Override
+    public RoleDepartment beforeSave(RoleDepartment entity) {
+        if (entity.getRoleId() == null) {
+            entity.setRoleId("");
+        }
+        if (entity.getDepartmentId() == null) {
+            entity.setDepartmentId("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<RoleDepartment> findByRoleId(String roleId) {
         return modelDao.findByRoleId(roleId);
     }
 
+    @Override
     public void deleteByRoleId(String roleId) {
         modelDao.deleteByRoleId(roleId);
     }

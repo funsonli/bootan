@@ -24,5 +24,8 @@ public interface DictDataService extends BaseService<DictData, String> {
     @Override
     Page<DictData> findByCondition(DictData model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    DictData beforeSave(DictData entity);
+
     List<DictData> findByDictId(String dictId);
 }

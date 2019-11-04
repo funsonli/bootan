@@ -2,7 +2,6 @@ package com.funsonli.bootan.module.base.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.funsonli.bootan.base.BaseEntity;
-import com.funsonli.bootan.common.constant.CommonConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,22 +26,22 @@ public class Department extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "父id")
-    private String parentId = CommonConstant.DEFAULT_PARENT_ID;
+    private String parentId;
 
     @ApiModelProperty(value = "父名称")
-    private String parentName = "";
+    private String parentName;
 
     @ApiModelProperty(value = "是否有子节点")
-    private Boolean isParent = false;
+    private Boolean isParent;
 
     @ApiModelProperty(value = "备注")
-    private String description = "";
+    private String description;
 
     @ApiModelProperty(value = "主负责人")
-    private String head = "";
+    private String head;
 
     @ApiModelProperty(value = "副负责人")
-    private String viceHead = "";
+    private String viceHead;
 
     @Override
     public String toString() {

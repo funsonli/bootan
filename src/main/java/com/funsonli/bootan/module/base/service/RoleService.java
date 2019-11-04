@@ -19,10 +19,13 @@ public interface RoleService extends BaseService<Role, String> {
      * @param model 对应的model
      * @param searchVO 搜索字符串
      * @param pageable 分页
-     * @return Page<Department>
+     * @return Page<Role>
      */
     @Override
     Page<Role> findByCondition(Role model, SearchVO searchVO, Pageable pageable);
+
+    @Override
+    Role beforeSave(Role entity);
 
     List<Role> findByUserId(String userId);
 

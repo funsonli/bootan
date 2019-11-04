@@ -3,6 +3,7 @@ package com.funsonli.bootan.module.base.service;
 import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.entity.Department;
+import com.funsonli.bootan.module.base.entity.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,6 +24,9 @@ public interface DepartmentService extends BaseService<Department, String> {
     */
     @Override
     Page<Department> findByCondition(Department model, SearchVO searchVO, Pageable pageable);
+
+    @Override
+    Department beforeSave(Department entity);
 
     @Override
     List<Department> findByNameOrNameLike(String keyword);

@@ -24,6 +24,9 @@ public interface PermissionService extends BaseService<Permission, String> {
     @Override
     Page<Permission> findByCondition(Permission model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    Permission beforeSave(Permission entity);
+
     List<Permission> findByTypeAndStatusOrderBySortOrder(Integer type, Integer status);
 
     @Override

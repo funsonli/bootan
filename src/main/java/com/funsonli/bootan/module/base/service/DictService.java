@@ -24,6 +24,9 @@ public interface DictService extends BaseService<Dict, String> {
     @Override
     Page<Dict> findByCondition(Dict model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    Dict beforeSave(Dict entity);
+
     List<Dict> findAllByTitleOrTitleLike(String keyword);
 
     Dict findByName(String name);

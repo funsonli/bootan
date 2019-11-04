@@ -29,40 +29,42 @@ import java.util.List;
 @ApiModel(value = "用户")
 public class User extends BaseEntity {
 
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "用户名")
     @Column(unique = true, nullable = false)
-    private String username = "";
+    private String username;
 
     @ApiModelProperty(value = "密码")
     @Column(nullable = false)
-    private String password = "";
+    private String password;
 
     @ApiModelProperty(value = "邮箱")
-    private String email = "";
+    private String email;
 
     @ApiModelProperty(value = "昵称")
-    private String nickName = "";
+    private String nickName;
 
     @ApiModelProperty(value = "头像")
-    private String avatar = "";
+    private String avatar;
 
     @ApiModelProperty(value = "描述")
-    private String description = "";
+    private String description;
 
     @ApiModelProperty(value = "性别")
-    private String sex = "";
+    private String sex;
 
     @ApiModelProperty(value = "地址")
-    private String address = "";
+    private String address;
 
     @ApiModelProperty(value = "手机号")
-    private String mobile = "";
+    private String mobile;
 
     @ApiModelProperty(value = "备注")
-    private String remark = "";
+    private String remark;
 
     @ApiModelProperty(value = "部门id")
-    private String departmentId = "";
+    private String departmentId;
 
     @Transient
     @TableField(exist=false)

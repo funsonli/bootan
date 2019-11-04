@@ -86,6 +86,18 @@ public class DictDataServiceImpl implements DictDataService {
         }, pageable);
     }
 
+    @Override
+    public DictData beforeSave(DictData entity) {
+        if (entity.getValue() == null) {
+            entity.setValue("");
+        }
+        if (entity.getDictId() == null) {
+            entity.setDictId("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<DictData> findByDictId(String dictId) {
         return modelDao.findByDictIdOrderBySortOrderAsc(dictId);
     }

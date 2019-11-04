@@ -2,6 +2,7 @@ package com.funsonli.bootan.module.base.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.PermissionDao;
 import com.funsonli.bootan.module.base.entity.Permission;
@@ -87,6 +88,39 @@ public class PermissionServiceImpl implements PermissionService {
         }, pageable);
     }
 
+    @Override
+    public Permission beforeSave(Permission entity) {
+        if (entity.getTitle() == null) {
+            entity.setTitle("");
+        }
+        if (entity.getParentId() == null) {
+            entity.setParentId(CommonConstant.DEFAULT_PARENT_ID);
+        }
+        if (entity.getDescription() == null) {
+            entity.setDescription("");
+        }
+        if (entity.getComponent() == null) {
+            entity.setComponent("");
+        }
+        if (entity.getPath() == null) {
+            entity.setPath("");
+        }
+        if (entity.getIcon() == null) {
+            entity.setIcon("");
+        }
+        if (entity.getLevel() == null) {
+            entity.setLevel(CommonConstant.PERMISSION_LEVEL_0);
+        }
+        if (entity.getButtonType() == null) {
+            entity.setButtonType("");
+        }
+        if (entity.getRedirectUrl() == null) {
+            entity.setRedirectUrl("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<Permission> findByTypeAndStatusOrderBySortOrder(Integer type, Integer status) {
         return modelDao.findByTypeAndStatusOrderBySortOrder(type, status);
     }
@@ -96,6 +130,7 @@ public class PermissionServiceImpl implements PermissionService {
         return modelDao.findByNameOrNameLikeOrderBySortOrderAsc(keyword, "%" + keyword + "%");
     }
 
+    @Override
     public List<Permission> findByUserId(String userId) {
         return modelMapper.findByUserId(userId);
     }

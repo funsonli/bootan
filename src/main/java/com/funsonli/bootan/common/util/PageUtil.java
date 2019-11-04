@@ -15,17 +15,19 @@ import org.springframework.data.domain.Sort;
 public class PageUtil {
     public static Pageable initPage(PageVO page){
 
-        Pageable pageable=null;
-        int pageNumber=page.getPageNumber();
-        int pageSize=page.getPageSize();
-        String sort=page.getSort();
-        String order=page.getOrder();
+        Pageable pageable = null;
 
-        if(pageNumber<1){
-            pageNumber=1;
+
+        int pageNumber = page.getPageNumber() != null ? page.getPageNumber() : 1;
+        int pageSize = page.getPageSize() != null ? page.getPageSize() : 10;
+        String sort = page.getSort() != null ? page.getSort() : "createdAt";
+        String order = page.getOrder() != null ? page.getOrder() : "desc";
+
+        if (pageNumber < 1){
+            pageNumber = 1;
         }
-        if(pageSize<1){
-            pageSize=10;
+        if (pageSize < 1){
+            pageSize = 10;
         }
         if(StrUtil.isNotBlank(sort)) {
             Sort.Direction d;
@@ -34,10 +36,10 @@ public class PageUtil {
             }else {
                 d = Sort.Direction.valueOf(order.toUpperCase());
             }
-            Sort s = new Sort(d,sort);
-            pageable = PageRequest.of(pageNumber-1, pageSize,s);
+            Sort s = new Sort(d, sort);
+            pageable = PageRequest.of(pageNumber - 1, pageSize, s);
         }else {
-            pageable = PageRequest.of(pageNumber-1, pageSize);
+            pageable = PageRequest.of(pageNumber - 1, pageSize);
         }
         return pageable;
     }

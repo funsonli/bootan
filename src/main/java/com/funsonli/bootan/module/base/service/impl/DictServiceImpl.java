@@ -2,7 +2,6 @@ package com.funsonli.bootan.module.base.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.DictDao;
 import com.funsonli.bootan.module.base.entity.Dict;
@@ -88,10 +87,20 @@ public class DictServiceImpl implements DictService {
         }, pageable);
     }
 
+    @Override
+    public Dict beforeSave(Dict entity) {
+        if (entity.getTitle() == null) {
+            entity.setTitle("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<Dict> findAllByTitleOrTitleLike(String keyword) {
         return modelDao.findByTitleOrTitleLikeOrderBySortOrderAsc(keyword, "%" + keyword + "%");
     }
 
+    @Override
     public Dict findByName(String name) {
         return modelDao.findByName(name);
     }

@@ -2,6 +2,7 @@ package com.funsonli.bootan.module.base.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.RoleDao;
 import com.funsonli.bootan.module.base.entity.Role;
@@ -45,6 +46,7 @@ public class RoleServiceImpl implements RoleService {
     * @param pageable
     * @return
     */
+    @Override
     public Page<Role> findByCondition(Role model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<Role>() {
             @Nullable
@@ -87,14 +89,31 @@ public class RoleServiceImpl implements RoleService {
         }, pageable);
     }
 
+    @Override
+    public Role beforeSave(Role entity) {
+        if (entity.getDescription() == null) {
+            entity.setDescription("");
+        }
+        if (entity.getDepartmentType() == null) {
+            entity.setDepartmentType(CommonConstant.ROLE_DEPARTMENT_TYPE);
+        }
+        if (entity.getIsDefault() == null) {
+            entity.setIsDefault(CommonConstant.ROLE_DEFAULT_NO);
+        }
+        return entity;
+    }
+
+    @Override
     public List<Role> findByUserId(String userId) {
         return modelMapper.findByUserId(userId);
     }
 
+    @Override
     public void updateIsDefaultNo() {
         modelDao.updateIsDefaultNo();
     }
 
+    @Override
     public Role findByIsDefault(Integer isDefault) {
         return modelDao.findByIsDefault(isDefault);
     }

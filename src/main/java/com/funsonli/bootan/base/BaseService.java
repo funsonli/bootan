@@ -2,6 +2,8 @@ package com.funsonli.bootan.base;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.funsonli.bootan.common.constant.CommonConstant;
+import com.funsonli.bootan.common.util.SnowFlake;
 import com.funsonli.bootan.common.vo.SearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,11 +27,53 @@ public interface BaseService<E extends BaseEntity, ID extends Serializable> {
     @Autowired
     BaseDao<E, ID> getDao();
 
+    E beforeSave(E entity);
+
     default E save(E entity) {
+        entity = beforeSaveDefault(entity);
+        entity = beforeSave(entity);
         return getDao().save(entity);
     }
 
+
+    default E beforeSaveDefault(E entity) {
+        if (entity.getId() == null) {
+            entity.setId(String.valueOf(SnowFlake.getInstance().nextId()));
+        }
+        if (entity.getName() == null) {
+            entity.setName("");
+        }
+        if (entity.getType() == null) {
+            entity.setType(CommonConstant.TYPE_DEFAULT);
+        }
+        if (entity.getSortOrder() == null) {
+            entity.setSortOrder(CommonConstant.SORT_ORDER_DEFAULT);
+        }
+        if (entity.getStatus() == null) {
+            entity.setStatus(CommonConstant.STATUS_ENABLE);
+        }
+        if (entity.getCreatedAt() == null) {
+            entity.setCreatedAt(new Date());
+        }
+        if (entity.getUpdatedAt() == null) {
+            entity.setUpdatedAt(new Date());
+        }
+        if (entity.getCreatedBy() == null) {
+            entity.setCreatedBy("");
+        }
+        if (entity.getUpdatedBy() == null) {
+            entity.setUpdatedBy("");
+        }
+        return entity;
+    }
+
     default E saveAndFlush(E entity) {
+
+        return getDao().saveAndFlush(entity);
+    }
+
+    default E update(E entity) {
+
         return getDao().saveAndFlush(entity);
     }
 

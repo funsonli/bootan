@@ -5,10 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.DepartmentDao;
 import com.funsonli.bootan.module.base.dao.UserDao;
-import com.funsonli.bootan.module.base.entity.Department;
-import com.funsonli.bootan.module.base.entity.Permission;
-import com.funsonli.bootan.module.base.entity.Role;
-import com.funsonli.bootan.module.base.entity.User;
+import com.funsonli.bootan.module.base.entity.*;
 import com.funsonli.bootan.module.base.mapper.PermissionMapper;
 import com.funsonli.bootan.module.base.mapper.RoleMapper;
 import com.funsonli.bootan.module.base.service.UserService;
@@ -70,6 +67,44 @@ public class UserServiceImpl implements UserService {
         user.setPermissions(permissions);
 
         return user;
+    }
+
+    @Override
+    public User beforeSave(User entity) {
+        if (entity.getUsername() == null) {
+            entity.setUsername("");
+        }
+        if (entity.getPassword() == null) {
+            entity.setPassword("");
+        }
+        if (entity.getEmail() == null) {
+            entity.setEmail("");
+        }
+        if (entity.getNickName() == null) {
+            entity.setNickName("");
+        }
+        if (entity.getAvatar() == null) {
+            entity.setAvatar("");
+        }
+        if (entity.getDescription() == null) {
+            entity.setDescription("");
+        }
+        if (entity.getSex() == null) {
+            entity.setSex("");
+        }
+        if (entity.getAddress() == null) {
+            entity.setAddress("");
+        }
+        if (entity.getMobile() == null) {
+            entity.setMobile("");
+        }
+        if (entity.getRemark() == null) {
+            entity.setRemark("");
+        }
+        if (entity.getDepartmentId() == null) {
+            entity.setDepartmentName("");
+        }
+        return entity;
     }
 
     @Override

@@ -21,4 +21,7 @@ public interface LogService extends BaseService<Log, String> {
      */
     @Override
     Page<Log> findByCondition(Log model, SearchVO searchVO, Pageable pageable);
+
+    @Override
+    Log beforeSave(Log entity);
 }

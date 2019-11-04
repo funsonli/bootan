@@ -1,8 +1,8 @@
 package com.funsonli.bootan.base;
 
 import cn.hutool.core.util.StrUtil;
-import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.annotation.BootanLog;
+import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.util.LocaleMessage;
 import com.funsonli.bootan.common.util.PageUtil;
 import com.funsonli.bootan.common.vo.PageVO;
@@ -10,20 +10,25 @@ import com.funsonli.bootan.common.vo.SearchVO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 基础接口，每个继承该类的控制器都有的接口
@@ -131,7 +136,10 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
         if (StrUtil.isNotEmpty(request.getParameter("id"))) {
             E model = getService().findById((ID)request.getParameter("id"));
             if (null != model) {
-                model = getService().saveAndFlush(modelAttribute);
+
+                String[] nullProperties = getNullProperties(modelAttribute);
+                BeanUtils.copyProperties(modelAttribute, model, nullProperties);
+                model = getService().saveAndFlush(model);
                 return this.success(model);
             } else {
                 return BaseResult.error();
@@ -240,4 +248,28 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
 
         return BaseResult.success(message.toString());
     }
+
+    /**
+     * 获取对象的空属性
+     * @param src 源对象
+     * @return String[]
+     */
+    protected String[] getNullProperties(Object src) {
+        //1.获取Bean
+        BeanWrapper srcBean = new BeanWrapperImpl(src);
+        //2.获取Bean的属性描述
+        PropertyDescriptor[] pds = srcBean.getPropertyDescriptors();
+        //3.获取Bean的空属性
+        Set<String> properties = new HashSet<>();
+        for (PropertyDescriptor propertyDescriptor : pds) {
+            String propertyName = propertyDescriptor.getName();
+            Object propertyValue = srcBean.getPropertyValue(propertyName);
+            if (StringUtils.isEmpty(propertyValue)) {
+                srcBean.setPropertyValue(propertyName, null);
+                properties.add(propertyName);
+            }
+        }
+        return properties.toArray(new String[0]);
+    }
+
 }

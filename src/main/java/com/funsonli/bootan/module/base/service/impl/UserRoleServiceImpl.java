@@ -35,10 +35,23 @@ public class UserRoleServiceImpl implements UserRoleService {
         return null;
     }
 
+    @Override
+    public UserRole beforeSave(UserRole entity) {
+        if (entity.getRoleId() == null) {
+            entity.setRoleId("");
+        }
+        if (entity.getUserId() == null) {
+            entity.setUserId("");
+        }
+        return entity;
+    }
+
+    @Override
     public List<UserRole> findByUserId(String userId) {
         return modelDao.findByUserId(userId);
     }
 
+    @Override
     public void deleteByUserId(String userId) {
         modelDao.deleteByUserId(userId);
     }

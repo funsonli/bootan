@@ -24,6 +24,9 @@ public interface UserRoleService extends BaseService<UserRole, String> {
     @Override
     Page<UserRole> findByCondition(UserRole model, SearchVO searchVO, Pageable pageable);
 
+    @Override
+    UserRole beforeSave(UserRole entity);
+
     List<UserRole> findByUserId(String userId);
 
     void deleteByUserId(String userId);

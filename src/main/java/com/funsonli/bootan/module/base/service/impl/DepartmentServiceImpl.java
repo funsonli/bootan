@@ -2,7 +2,7 @@ package com.funsonli.bootan.module.base.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.funsonli.bootan.base.BaseService;
+import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.dao.DepartmentDao;
 import com.funsonli.bootan.module.base.entity.Department;
@@ -29,7 +29,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentDao modelDao;
-
 
     @Autowired
     private DepartmentMapper modelMapper;
@@ -87,6 +86,29 @@ public class DepartmentServiceImpl implements DepartmentService {
                 return null;
             }
         }, pageable);
+    }
+
+    @Override
+    public Department beforeSave(Department entity) {
+        if (entity.getParentId() == null) {
+            entity.setParentId(CommonConstant.DEFAULT_PARENT_ID);
+        }
+        if (entity.getParentName() == null) {
+            entity.setParentName("");
+        }
+        if (entity.getIsParent() == null) {
+            entity.setIsParent(false);
+        }
+        if (entity.getDescription() == null) {
+            entity.setDescription("");
+        }
+        if (entity.getHead() == null) {
+            entity.setHead("");
+        }
+        if (entity.getViceHead() == null) {
+            entity.setViceHead("");
+        }
+        return entity;
     }
 
     @Override
