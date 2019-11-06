@@ -61,28 +61,32 @@ public class BootanLogAspect {
         Method method = signature.getMethod();
         Log model = new Log();
 
-        String username = "";
-        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        username = user.getUsername();
-        model.setUsername(username);
+        try {
+            String username = "";
+            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            username = user.getUsername();
+            model.setUsername(username);
 
-        model.setCostTime((int)(time));
+            model.setCostTime((int) (time));
 
-        BootanLog userAction = method.getAnnotation(BootanLog.class);
-        if (userAction != null) {
-            // 注解上的描述
-            model.setName(userAction.value());
-            model.setType(userAction.type());
+            BootanLog userAction = method.getAnnotation(BootanLog.class);
+            if (userAction != null) {
+                // 注解上的描述
+                model.setName(userAction.value());
+                model.setType(userAction.type());
+            }
+
+            Map<String, String[]> params = request.getParameterMap();
+            model.setRequestUrl(request.getRequestURI());
+            model.setRequestType(request.getMethod());
+            model.setRequestParam(CommonUtil.map2JsonString(params));
+
+            model.setIp(IpUtil.getUserIP(request));
+            model.setIpInfo(IpUtil.getCityInfo(IpUtil.getUserIP(request)));
+
+            modelService.save(model);
+        } catch (NullPointerException e) {
+            log.error(e.toString());
         }
-
-        Map<String, String[]> params = request.getParameterMap();
-        model.setRequestUrl(request.getRequestURI());
-        model.setRequestType(request.getMethod());
-        model.setRequestParam(CommonUtil.map2JsonString(params));
-
-        model.setIp(IpUtil.getUserIP(request));
-        model.setIpInfo(IpUtil.getCityInfo(IpUtil.getUserIP(request)));
-
-        modelService.save(model);
     }
 }

@@ -57,48 +57,9 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     @Autowired
     public abstract BaseService<E, ID> getService();
 
-    protected BaseResult success(Object data) {
-
-        return BaseResult.success(localeMessage.getMessage("Operation_Success"), data);
-    }
-
-    protected BaseResult success(String message) {
-
-        return BaseResult.success(message);
-    }
-
-    protected BaseResult success(String message, Object data) {
-
-        return BaseResult.success(message, data);
-    }
-
-    protected BaseResult success() {
-        return BaseResult.success(localeMessage.getMessage("Operation_Success"));
-    }
-
-    protected BaseResult error() {
-
-        return BaseResult.error(localeMessage.getMessage("Operation_Failed"));
-    }
-
-    protected BaseResult error(int status) {
-
-        return BaseResult.error(status, localeMessage.getMessage("Operation_Failed"));
-    }
-
-    protected BaseResult error(String message) {
-
-        return BaseResult.error(message);
-    }
-
-    protected BaseResult error(int status, String message) {
-
-        return BaseResult.error(status, message);
-    }
-
     @GetMapping({"/", "index"})
-    @ApiOperation("角色部门数据范围列表搜索分页")
-    @BootanLog(value = "角色部门数据范围列表搜索分页", type = CommonConstant.LOG_TYPE_ACCESS)
+    @ApiOperation("数据范围列表搜索分页")
+    @BootanLog(value = "数据范围列表搜索分页", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult index(@ModelAttribute E modelAttribute,
                             @ModelAttribute SearchVO searchVO,
                             @ModelAttribute PageVO pageVO,
@@ -247,6 +208,45 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
         }
 
         return this.success(message.toString());
+    }
+
+    protected BaseResult success(Object data) {
+
+        return BaseResult.success(localeMessage.getMessage("Operation_Success"), data);
+    }
+
+    protected BaseResult success(String message) {
+
+        return BaseResult.success(message);
+    }
+
+    protected BaseResult success(String message, Object data) {
+
+        return BaseResult.success(message, data);
+    }
+
+    protected BaseResult success() {
+        return BaseResult.success(localeMessage.getMessage("Operation_Success"));
+    }
+
+    protected BaseResult error() {
+
+        return BaseResult.error(localeMessage.getMessage("Operation_Failed"));
+    }
+
+    protected BaseResult error(int status) {
+
+        return BaseResult.error(status, localeMessage.getMessage("Operation_Failed"));
+    }
+
+    protected BaseResult error(String message) {
+
+        return BaseResult.error(message);
+    }
+
+    protected BaseResult error(int status, String message) {
+
+        return BaseResult.error(status, message);
     }
 
     /**

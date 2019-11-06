@@ -140,7 +140,7 @@ public class RedisController {
 
     @GetMapping("/info")
     @ApiOperation("Redis运行信息")
-    @BootanLog(value = "Redis运行信息", type = CommonConstant.LOG_TYPE_ACCESS)
+    //@BootanLog(value = "Redis运行信息", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult info() {
 
         List<RedisInfo> redisInfoList = new ArrayList<>(10);
@@ -165,7 +165,7 @@ public class RedisController {
 
     @GetMapping("/memory")
     @ApiOperation("Redis运行内存")
-    @BootanLog(value = "Redis运行内存", type = CommonConstant.LOG_TYPE_ACCESS)
+    //@BootanLog(value = "Redis运行内存", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult memory() {
         Map<String, Object> map = new HashMap<>(16);
 
@@ -187,7 +187,7 @@ public class RedisController {
 
     @GetMapping("/key-size")
     @ApiOperation("Redis实时Key数量")
-    @BootanLog(value = "Redis实时Key数量", type = CommonConstant.LOG_TYPE_ACCESS)
+    //@BootanLog(value = "Redis实时Key数量", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult keySize() {
         Map<String, Object> map = new HashMap<>(16);
 
