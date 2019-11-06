@@ -2,6 +2,7 @@ package com.funsonli.bootan.component.uploader;
 
 import com.funsonli.bootan.component.uploader.impl.AliyunOssUploader;
 import com.funsonli.bootan.component.uploader.impl.QiniuUploader;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/10/30
  */
 @Slf4j
+@Data
 @Component
 public class UploaderFactory {
     @Value("${uploader.type}")
