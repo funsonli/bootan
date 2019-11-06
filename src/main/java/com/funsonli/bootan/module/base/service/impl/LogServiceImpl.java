@@ -46,6 +46,7 @@ public class LogServiceImpl implements LogService {
     * @param pageable
     * @return
     */
+    @Override
     public Page<Log> findByCondition(Log model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<Log>() {
             @Nullable

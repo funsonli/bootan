@@ -107,12 +107,12 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
                             HttpServletResponse response) {
 
         if (result.hasErrors()) {
-            return BaseResult.error();
+            return this.error();
         }
 
         Page<E> page = getService().findByCondition(modelAttribute, searchVO, PageUtil.initPage(pageVO));
 
-        return BaseResult.success(page);
+        return this.success(page);
     }
 
     @GetMapping("/all")
@@ -130,7 +130,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     public BaseResult save(@ModelAttribute E modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 
         if (result.hasErrors()) {
-            return BaseResult.error();
+            return this.error();
         }
 
         if (StrUtil.isNotEmpty(request.getParameter("id"))) {
@@ -142,7 +142,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
                 model = getService().saveAndFlush(model);
                 return this.success(model);
             } else {
-                return BaseResult.error();
+                return this.error();
             }
         }
 
@@ -186,7 +186,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
 
         List<E> models = getService().findByNameOrNameLike(keyword);
 
-        return BaseResult.success(new PageContent(models));
+        return this.success(new PageContent(models));
     }
 
     @PostMapping("/enable/{id}")
@@ -200,7 +200,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
             getService().save(model);
         }
 
-        return BaseResult.success();
+        return this.success();
     }
 
     @PostMapping("/disable/{id}")
@@ -214,7 +214,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
             getService().save(model);
         }
 
-        return BaseResult.success();
+        return this.success();
     }
 
     @PostMapping("/import-data")
@@ -246,7 +246,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
             message.append("全部导入成功，共" + (models.size() - reasons.size()) + "条");
         }
 
-        return BaseResult.success(message.toString());
+        return this.success(message.toString());
     }
 
     /**

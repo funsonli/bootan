@@ -45,6 +45,7 @@ public class DictServiceImpl implements DictService {
     * @param pageable
     * @return
     */
+    @Override
     public Page<Dict> findByCondition(Dict model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<Dict>() {
             @Nullable

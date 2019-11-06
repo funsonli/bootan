@@ -11,21 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+/**
+ * 日志接口
+ *
+ * @author Funsonli
+ * @date 2019/10/31
+ */
 @Slf4j
 @RestController
-@Transactional
+@Transactional(rollbackFor = RuntimeException.class)
 @ApiModel("日志接口")
 @RequestMapping("/bootan/log")
 public class LogController extends BaseController<Log, String> {
 
     @Autowired
     private LogService modelService;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     public BaseService getService() {

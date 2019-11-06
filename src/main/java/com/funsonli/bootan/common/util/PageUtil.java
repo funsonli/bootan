@@ -6,6 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 分页方法
  *
@@ -42,6 +45,30 @@ public class PageUtil {
             pageable = PageRequest.of(pageNumber - 1, pageSize);
         }
         return pageable;
+    }
+
+    public static List listToPage(Pageable page, List list) {
+
+        int pageNumber = page.getPageNumber() - 1;
+        int pageSize = page.getPageSize();
+
+        if (pageNumber < 0) {
+            pageNumber = 0;
+        }
+        if (pageSize < 1) {
+            pageSize = 10;
+        }
+
+        int fromIndex = pageNumber * pageSize;
+        int toIndex = pageNumber * pageSize + pageSize;
+
+        if (fromIndex > list.size()) {
+            return new ArrayList();
+        } else if (toIndex >= list.size()) {
+            return list.subList(fromIndex, list.size());
+        } else {
+            return list.subList(fromIndex, toIndex);
+        }
     }
 
 }

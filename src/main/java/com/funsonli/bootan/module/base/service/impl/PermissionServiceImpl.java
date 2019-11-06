@@ -46,6 +46,7 @@ public class PermissionServiceImpl implements PermissionService {
     * @param pageable
     * @return
     */
+    @Override
     public Page<Permission> findByCondition(Permission model, SearchVO searchVO, Pageable pageable) {
         return modelDao.findAll(new Specification<Permission>() {
             @Nullable
