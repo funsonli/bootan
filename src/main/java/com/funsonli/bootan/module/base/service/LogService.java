@@ -22,6 +22,11 @@ public interface LogService extends BaseService<Log, String> {
     @Override
     Page<Log> findByCondition(Log model, SearchVO searchVO, Pageable pageable);
 
+    /**
+     * 保存前设置默认值
+     * @param entity 对应的model
+     * @return Log
+     */
     @Override
     Log beforeSave(Log entity);
 }

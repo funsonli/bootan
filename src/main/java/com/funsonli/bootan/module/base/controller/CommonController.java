@@ -2,6 +2,8 @@ package com.funsonli.bootan.module.base.controller;
 
 import com.funsonli.bootan.base.BaseResult;
 import com.funsonli.bootan.component.uploader.UploaderFactory;
+import com.funsonli.bootan.module.base.entity.File;
+import com.funsonli.bootan.module.base.service.FileService;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,16 +26,30 @@ public class CommonController {
     @Autowired
     private UploaderFactory uploaderFactory;
 
+    @Autowired
+    private FileService fileService;
+
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     @ApiOperation(value = "文件上传")
     public BaseResult upload(@RequestParam(required = false) MultipartFile file,
                              HttpServletRequest request) {
 
         String result = null;
-        String fileName = rename(file.getOriginalFilename());
+        String key = rename(file.getOriginalFilename());
         try {
             InputStream inputStream = file.getInputStream();
-            result = uploaderFactory.getUploader().uploadInputStream(inputStream, fileName);
+            result = uploaderFactory.getUploader().uploadInputStream(inputStream, key);
+            if (result != null) {
+                File model = new File();
+                model.setName(file.getOriginalFilename());
+                model.setSize(file.getSize());
+                model.setFileKey(key);
+                model.setUrl(result);
+                model.setLocation(uploaderFactory.getType());
+                model.setContentType(file.getContentType());
+
+                fileService.save(model);
+            }
         } catch (Exception e) {
             log.error(e.toString());
             return BaseResult.error(e.toString());
