@@ -54,6 +54,7 @@ public class MessageServiceImpl implements MessageService {
 
                 // 默认搜索条件
                 Path<String> nameField = root.get("name");
+                Path<String> contentField = root.get("content");
                 Path<Integer> typeField = root.get("type");
                 Path<Integer> statusField = root.get("status");
                 Path<Date> createAtField = root.get("createdAt");
@@ -63,6 +64,10 @@ public class MessageServiceImpl implements MessageService {
 
                 if(StrUtil.isNotBlank(model.getName())){
                     list.add(cb.like(nameField, '%' + model.getName() + '%'));
+                }
+
+                if(StrUtil.isNotBlank(model.getContent())){
+                    list.add(cb.like(contentField, '%' + model.getContent() + '%'));
                 }
 
                 if(null != model.getType()){
@@ -92,9 +97,12 @@ public class MessageServiceImpl implements MessageService {
     public Message beforeSave(Message entity) {
 
         // 添加未在BaseEntity中定义的字段
-        /*if (entity.getName1() == null) {
-            entity.setName1("");
-        }*/
+        if (entity.getContent() == null) {
+            entity.setContent("");
+        }
+        if (entity.getNewAutoSend() == null) {
+            entity.setNewAutoSend(0);
+        }
 
         return entity;
     }

@@ -54,6 +54,8 @@ public class MessageStateServiceImpl implements MessageStateService {
 
                 // 默认搜索条件
                 Path<String> nameField = root.get("name");
+                Path<String> messageIdField = root.get("messageId");
+                Path<String> userIdField = root.get("userId");
                 Path<Integer> typeField = root.get("type");
                 Path<Integer> statusField = root.get("status");
                 Path<Date> createAtField = root.get("createdAt");
@@ -63,6 +65,14 @@ public class MessageStateServiceImpl implements MessageStateService {
 
                 if(StrUtil.isNotBlank(model.getName())){
                     list.add(cb.like(nameField, '%' + model.getName() + '%'));
+                }
+
+                if(StrUtil.isNotBlank(model.getMessageId())){
+                    list.add(cb.like(messageIdField, '%' + model.getMessageId() + '%'));
+                }
+
+                if(StrUtil.isNotBlank(model.getUserId())){
+                    list.add(cb.like(userIdField, '%' + model.getUserId() + '%'));
                 }
 
                 if(null != model.getType()){
@@ -92,10 +102,18 @@ public class MessageStateServiceImpl implements MessageStateService {
     public MessageState beforeSave(MessageState entity) {
 
         // 添加未在BaseEntity中定义的字段
-        /*if (entity.getName1() == null) {
-            entity.setName1("");
-        }*/
+        if (entity.getMessageId() == null) {
+            entity.setMessageId("");
+        }
+        if (entity.getUserId() == null) {
+            entity.setUserId("");
+        }
 
         return entity;
+    }
+
+    @Override
+    public void deleteByMessageId(String messageId) {
+        getDao().deleteByMessageId(messageId);
     }
 }

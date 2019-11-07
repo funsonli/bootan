@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MessageStateDao extends BaseDao<MessageState, String> {
 
+    void deleteByMessageId(String messageId);
 }

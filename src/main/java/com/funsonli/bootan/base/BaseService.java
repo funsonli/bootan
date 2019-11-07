@@ -35,6 +35,13 @@ public interface BaseService<E extends BaseEntity, ID extends Serializable> {
         return getDao().save(entity);
     }
 
+    default Iterable<E> saveAll(Iterable<E> entities) {
+        for (E e : entities) {
+            e = beforeSaveDefault(e);
+            e = beforeSave(e);
+        }
+        return getDao().saveAll(entities);
+    }
 
     default E beforeSaveDefault(E entity) {
         if (entity.getId() == null) {

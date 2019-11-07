@@ -180,7 +180,7 @@ CREATE TABLE `tbl_department` (
 DROP TABLE IF EXISTS `tbl_log`;
 CREATE TABLE `tbl_log` (
   `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255)  NOT NULL DEFAULT "",
   `request_url` varchar(255) NOT NULL default '',
   `request_type` varchar(255) NOT NULL default '',
   `request_param` text,
@@ -201,7 +201,7 @@ CREATE TABLE `tbl_log` (
 DROP TABLE IF EXISTS `tbl_file`;
 CREATE TABLE `tbl_file` (
   `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
   `size` int(11) NOT NULL default '0',
   `url` varchar(255) NOT NULL default '',
   `file_key` varchar(255) NOT NULL default '',
@@ -220,7 +220,7 @@ CREATE TABLE `tbl_file` (
 DROP TABLE IF EXISTS `tbl_message`;
 CREATE TABLE `tbl_message` (
   `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
   `content` text,
   `new_auto_send` int(11) NOT NULL default '0',
   `type` int(11) NOT NULL DEFAULT "1",
@@ -236,7 +236,7 @@ CREATE TABLE `tbl_message` (
 DROP TABLE IF EXISTS `tbl_message_state`;
 CREATE TABLE `tbl_message_state` (
   `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
   `user_id` varchar(255) NOT NULL,
   `message_id` varchar(255) NOT NULL,
   `type` int(11) NOT NULL DEFAULT "1",

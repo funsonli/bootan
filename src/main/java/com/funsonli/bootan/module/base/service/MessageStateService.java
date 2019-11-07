@@ -5,7 +5,6 @@ import com.funsonli.bootan.common.vo.SearchVO;
 import com.funsonli.bootan.module.base.entity.MessageState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 /**
  * 消息发送状态接口
@@ -31,4 +30,5 @@ public interface MessageStateService extends BaseService<MessageState, String> {
     @Override
     MessageState beforeSave(MessageState entity);
 
+    void deleteByMessageId(String messageId);
 }
