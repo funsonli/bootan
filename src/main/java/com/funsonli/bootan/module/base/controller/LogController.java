@@ -1,7 +1,6 @@
 package com.funsonli.bootan.module.base.controller;
 
 import com.funsonli.bootan.base.BaseController;
-import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.module.base.entity.Log;
 import com.funsonli.bootan.module.base.service.LogService;
 import io.swagger.annotations.ApiModel;
@@ -28,7 +27,7 @@ public class LogController extends BaseController<Log, String> {
     private LogService modelService;
 
     @Override
-    public BaseService getService() {
+    public LogService getService() {
         return modelService;
     }
 

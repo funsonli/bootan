@@ -2,7 +2,6 @@ package com.funsonli.bootan.module.base.controller;
 
 import com.funsonli.bootan.base.BaseController;
 import com.funsonli.bootan.base.BaseResult;
-import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.common.annotation.BootanLog;
 import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.module.base.entity.File;
@@ -33,7 +32,7 @@ public class FileController extends BaseController<File, String> {
     private FileService modelService;
 
     @Override
-    public BaseService getService() {
+    public FileService getService() {
         return modelService;
     }
 

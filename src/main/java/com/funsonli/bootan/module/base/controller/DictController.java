@@ -34,7 +34,7 @@ public class DictController extends BaseController<Dict, String> {
     private DictService modelService;
 
     @Override
-    public BaseService getService() {
+    public DictService getService() {
         return modelService;
     }
 

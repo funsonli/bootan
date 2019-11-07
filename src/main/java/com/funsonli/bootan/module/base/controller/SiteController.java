@@ -25,7 +25,7 @@ public class SiteController extends BaseController<User, String> {
     private UserService userService;
 
     @Override
-    public BaseService getService() {
+    public UserService getService() {
         return userService;
     }
 

@@ -33,7 +33,7 @@ public class RoleDepartmentController extends BaseController<RoleDepartment, Str
     private RoleDepartmentService modelService;
 
     @Override
-    public BaseService getService() {
+    public RoleDepartmentService getService() {
         return modelService;
     }
 

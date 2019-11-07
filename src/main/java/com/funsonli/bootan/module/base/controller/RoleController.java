@@ -2,7 +2,6 @@ package com.funsonli.bootan.module.base.controller;
 
 import com.funsonli.bootan.base.BaseController;
 import com.funsonli.bootan.base.BaseResult;
-import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.util.PageUtil;
 import com.funsonli.bootan.common.vo.PageVO;
@@ -49,7 +48,7 @@ public class RoleController extends BaseController<Role, String> {
     private RoleDepartmentService roleDepartmentService;
 
     @Override
-    public BaseService getService() {
+    public RoleService getService() {
         return modelService;
     }
 

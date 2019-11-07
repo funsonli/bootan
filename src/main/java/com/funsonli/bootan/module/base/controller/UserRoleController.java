@@ -30,7 +30,7 @@ public class UserRoleController extends BaseController<UserRole, String> {
     private UserRoleService modelService;
 
     @Override
-    public BaseService getService() {
+    public UserRoleService getService() {
         return modelService;
     }
 
