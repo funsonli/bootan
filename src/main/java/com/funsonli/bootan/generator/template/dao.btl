@@ -1,0 +1,14 @@
+package ${entity.daoPackage};
+
+import com.funsonli.bootan.base.BaseDao;
+import ${entity.entityPackage}.${entity.className};
+import org.springframework.stereotype.Repository;
+
+/**
+ * ${entity.description}数据处理层
+ * @author ${entity.author}
+ */
+@Repository
+public interface ${entity.className}Dao extends BaseDao<${entity.className}, ${entity.primaryKeyType}> {
+
+}

@@ -1,0 +1,34 @@
+package ${entity.servicePackage};
+
+import com.funsonli.bootan.base.BaseService;
+import com.funsonli.bootan.common.vo.SearchVO;
+import ${entity.entityPackage}.${entity.className};
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+/**
+ * ${entity.description}接口
+ * @author ${entity.author}
+ */
+public interface ${entity.className}Service extends BaseService<${entity.className}, ${entity.primaryKeyType}> {
+
+    /**
+    * 列表搜索分页
+    * @param model 对应的实体
+    * @param searchVO 搜索
+    * @param pageable 分页
+    * @return Page<${entity.className}>
+    */
+    @Override
+    public Page<${entity.className}> findByCondition(${entity.className} model, SearchVO searchVO, Pageable pageable);
+
+    /**
+     * 保存前设置默认值
+     * @param entity 对应的实体
+     * @return <${entity.className}>
+     */
+    @Override
+    ${entity.className} beforeSave(${entity.className} entity);
+
+}
