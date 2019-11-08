@@ -18,12 +18,13 @@ import java.util.Map;
  * 代码生成器
  * 1.需要增加XxxEntity文件中除了existField其他字段
  * 2.需要增加XxxServiceImpl文件中对应的搜索字段
+ * 3.需要增加XxxServiceImpl文件中beforeSave增加对应字段
  * @author funsonli
  */
 @Slf4j
 public class BootanGenerator {
 
-    private static String iniName = "quartz.ini";
+    private static String iniName = "template.ini";
 
     private static String[] existField = {"serialVersionUID", "id", "name", "type", "sortOrder", "createdAt", "createdBy", "updatedAt", "updatedBy"};
 
