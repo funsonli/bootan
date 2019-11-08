@@ -103,7 +103,7 @@ public class FileServiceImpl implements FileService {
 
         // 添加未在BaseEntity中定义的字段
         if (entity.getSize() == null) {
-            entity.setSize((long)0);
+            entity.setSize(0L);
         }
         if (entity.getUrl() == null) {
             entity.setUrl("");
