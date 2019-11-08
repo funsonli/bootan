@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,9 @@ public class MessageController extends BaseController<Message, String> {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @Override
     public MessageService getService() {
@@ -87,6 +91,8 @@ public class MessageController extends BaseController<Message, String> {
                     messageState.setMessageId(model.getId());
                     messageState.setName(model.getName());
                     messageStates.add(messageState);
+
+                    simpMessagingTemplate.convertAndSend("/topic/subscribe", "您收到了新的系统消息");
                 });
             } else {
                 if (modelAttribute.getUserIds() != null && modelAttribute.getUserIds().length > 0) {
@@ -96,6 +102,8 @@ public class MessageController extends BaseController<Message, String> {
                         messageState.setMessageId(model.getId());
                         messageState.setName(model.getName());
                         messageStates.add(messageState);
+
+                        simpMessagingTemplate.convertAndSendToUser(userId, "/subscribe", "您收到了新的消息");
                     }
                 }
             }
