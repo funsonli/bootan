@@ -249,6 +249,24 @@ CREATE TABLE `tbl_message_state` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `tbl_quartz`;
+CREATE TABLE `tbl_quartz` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `job_class_name` varchar(255) NOT NULL,
+  `cron_expression` varchar(255) NOT NULL,
+  `parameter` varchar(255) NOT NULL DEFAULT "",
+  `description` varchar(255) NOT NULL DEFAULT "",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 INSERT INTO `tbl_permission` VALUES ('379506240705630261', '0', 'bootan', '', '', '', 'Bootan系统', 'ios-aperture', '0', '', '', '1', '50', '1', '2019-09-17 04:00:23', '2019-10-10 03:14:34', '', '');
 INSERT INTO `tbl_permission` VALUES ('379516240705630351', '379506240705630261', 'user-index', '', 'Main', '/user', '系统管理', 'ios-settings', '1', '', '', '1', '50', '1', '2019-09-17 04:05:54', '2019-10-10 15:37:22', '', '');
