@@ -102,6 +102,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (entity.getDescription() == null) {
             entity.setDescription("");
         }
+        if (entity.getLevel() == null) {
+            entity.setLevel(0);
+        }
         if (entity.getHead() == null) {
             entity.setHead("");
         }
