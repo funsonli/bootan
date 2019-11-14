@@ -15,6 +15,14 @@ export const api${entity.className}Save = (params) => {
   return axios.postRequest('/${entity.url}/save', params)
 }
 
+export const api${entity.className}Create = (params) => {
+  return axios.postRequest('/${entity.url}/create', params)
+}
+
+export const api${entity.className}Update = (params) => {
+  return axios.postRequest('/${entity.url}/update', params)
+}
+
 export const api${entity.className}Delete = (ids, params) => {
   return axios.deleteRequest('/${entity.url}/delete/' + ids, params)
 }
