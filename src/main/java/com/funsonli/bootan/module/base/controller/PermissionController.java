@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,48 @@ public class PermissionController extends BaseController<Permission, String> {
     @PostMapping("/save")
     @ApiOperation("保存")
     public BaseResult save(@ModelAttribute Permission modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (modelAttribute.getParentId() == null) {
+            modelAttribute.setParentId(CommonConstant.DEFAULT_PARENT_ID);
+        }
+
+        // level 需要计算
+        if (CommonConstant.DEFAULT_PARENT_ID.equals(modelAttribute.getParentId())) {
+            modelAttribute.setLevel(CommonConstant.PERMISSION_LEVEL_0);
+        } else {
+            Permission parent = modelService.findById(modelAttribute.getParentId());
+            if (null != parent && (0 <= parent.getLevel() && parent.getLevel() <= 2)) {
+                modelAttribute.setLevel(parent.getLevel() + 1);
+            } else {
+                return BaseResult.error();
+            }
+        }
+
+        Permission model = modelService.save(modelAttribute);
+
+        return BaseResult.success(model);
+    }
+
+    @Override
+    @PostMapping("/create")
+    @ApiOperation("创建")
+    public BaseResult create(@ModelAttribute Permission modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (!StringUtils.isEmpty(modelAttribute.getId())) {
+            return error();
+        }
+
+        return update(modelAttribute, result, request, response);
+    }
+
+    @Override
+    @PostMapping("/update")
+    @ApiOperation("更新")
+    public BaseResult update(@ModelAttribute Permission modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (modelAttribute.getParentId() == null) {
+            modelAttribute.setParentId(CommonConstant.DEFAULT_PARENT_ID);
+        }
 
         // level 需要计算
         if (CommonConstant.DEFAULT_PARENT_ID.equals(modelAttribute.getParentId())) {
@@ -86,6 +129,7 @@ public class PermissionController extends BaseController<Permission, String> {
     @ApiOperation("前端用户菜单")
     public BaseResult menuList() {
         List<Permission> models = modelService.findByUserId(bootanUser.me().getId());
+        log.info(models.toString());
 
         return BaseResult.success(convert(models, 2));
     }
