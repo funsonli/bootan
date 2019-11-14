@@ -5,7 +5,7 @@
 
 ## 概述
 
-本项目基于Spring Boot 2.x开发的后台管理项目，可以用来快速开发项目，基本功能已包含登录/RBAC动态权限管理/CRUD常用功能封装/AOP日志管理/websocket消息管理/iView&VUE前端等。
+本项目基于Spring Boot 2.x开发的后台管理项目，可以用来快速开发项目，基本功能已包含登录/RBAC动态权限管理/CRUD常用功能封装/AOP日志管理/websocket消息管理/iView Admin&VUE前端等。
 
 
 ### 功能简介
