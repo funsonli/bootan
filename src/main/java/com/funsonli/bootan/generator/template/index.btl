@@ -246,7 +246,8 @@ for(entry in mapField){
 <script>
 import {
   api${entity.className}Index,
-  api${entity.className}Save,
+  api${entity.className}Create,
+  api${entity.className}Update,
   api${entity.className}Delete,
   api${entity.className}All,
   api${entity.className}ImportData,
@@ -537,16 +538,29 @@ for(entry in mapField){
       this.$refs.modelForm.validate(valid => {
         if (valid) {
           this.loadingSubmit = true
-          api${entity.className}Save(this.modelForm).then(res => {
-            this.loadingSubmit = false
-            if (parseInt(res.status) === 200 && parseInt(res.data.code) === 200) {
-              this.$Message.success(res.data.message)
-              this.getModels()
-              this.modelModalVisible = false
-            } else {
-              this.$Message.error(res.data.message)
-            }
-          })
+          if (this.modalType == 0) {
+            api${entity.className}Create(this.modelForm).then(res => {
+              this.loadingSubmit = false
+              if (parseInt(res.status) === 200 && parseInt(res.data.code) === 200) {
+                this.$Message.success(res.data.message)
+                this.getModels()
+                this.modelModalVisible = false
+              } else {
+                this.$Message.error(res.data.message)
+              }
+            })
+          } else {
+            api${entity.className}Update(this.modelForm).then(res => {
+              this.loadingSubmit = false
+              if (parseInt(res.status) === 200 && parseInt(res.data.code) === 200) {
+                this.$Message.success(res.data.message)
+                this.getModels()
+                this.modelModalVisible = false
+              } else {
+                this.$Message.error(res.data.message)
+              }
+            })
+          }
         }
       })
     },
