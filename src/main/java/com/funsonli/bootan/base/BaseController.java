@@ -16,7 +16,6 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -109,6 +108,44 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
 
         E model = getService().save(modelAttribute);
         return this.success(model);
+    }
+
+    @PostMapping("/create")
+    @ApiOperation("创建")
+    @BootanLog(value = "创建", type = CommonConstant.LOG_TYPE_OPERATION)
+    public BaseResult create(@ModelAttribute E modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (result.hasErrors()) {
+            return this.error();
+        }
+
+        E model = getService().save(modelAttribute);
+        return this.success(model);
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("更新")
+    @BootanLog(value = "更新", type = CommonConstant.LOG_TYPE_OPERATION)
+    public BaseResult update(@ModelAttribute E modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (result.hasErrors()) {
+            return this.error();
+        }
+
+        if (StrUtil.isNotEmpty(request.getParameter("id"))) {
+            E model = getService().findById((ID)request.getParameter("id"));
+            if (null != model) {
+
+                String[] nullProperties = getNullProperties(modelAttribute);
+                BeanUtils.copyProperties(modelAttribute, model, nullProperties);
+                model = getService().saveAndFlush(model);
+                return this.success(model);
+            } else {
+                return this.error();
+            }
+        } else {
+            return this.error();
+        }
     }
 
     @DeleteMapping("/delete/{ids}")
@@ -264,7 +301,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
         for (PropertyDescriptor propertyDescriptor : pds) {
             String propertyName = propertyDescriptor.getName();
             Object propertyValue = srcBean.getPropertyValue(propertyName);
-            if (StringUtils.isEmpty(propertyValue)) {
+            if (propertyValue == null) {
                 srcBean.setPropertyValue(propertyName, null);
                 properties.add(propertyName);
             }
