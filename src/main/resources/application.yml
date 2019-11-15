@@ -70,6 +70,11 @@ spring:
           jobStore:
             misfireThreshold: 5000
 
+  activiti:
+    check-process-definitions: false # activti是否自动部署
+    db-identity-used: true #是否使用activti自带的用户体系
+    database-schema-update: true #是否每次都更新数据库
+    history-level: full
 
 # Mybatis-plus
 mybatis-plus:
@@ -114,6 +119,9 @@ ignored:
     - /**/*.woff
     - /**/*.woff2
     - /csrf
+    - /editor-app/**
+    - /modeler.html
+    - /bootan/activiti/**
 
 # Actuator
 management:
