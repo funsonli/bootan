@@ -276,7 +276,7 @@ export default {
 for(entry in mapField){
         var key = entry.key;
         var value = entry.value;
-        print("        " + key + ",\n");
+        print("        " + key + ": '',\n");
 }
 %>
         type: '',
