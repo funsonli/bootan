@@ -80,7 +80,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
 
-        List<E> models = getService().findAll();
+        List<E> models = getService().findAllBySortOrder();
         return this.success(models);
     }
 

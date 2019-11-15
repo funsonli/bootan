@@ -50,7 +50,7 @@ public class DepartmentController extends BaseController<Department, String> {
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
 
-        List<Department> models = getService().findAll();
+        List<Department> models = getService().findAllBySortOrder();
 
         Map<String, Department> mapAll = new HashMap<>(16);
         models.forEach(model -> mapAll.put(model.getId(), model));

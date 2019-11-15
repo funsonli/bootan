@@ -73,7 +73,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
 
-        List<${entity.className}> models = getService().findAll();
+        List<${entity.className}> models = getService().findAllBySortOrder();
         return this.success(models);
     }
 

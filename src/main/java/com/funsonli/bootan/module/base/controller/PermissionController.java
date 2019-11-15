@@ -120,7 +120,7 @@ public class PermissionController extends BaseController<Permission, String> {
     @GetMapping("/all")
     @ApiOperation("返回所有数据，需谨慎")
     public BaseResult all() {
-        List<Permission> models = modelService.findAll();
+        List<Permission> models = modelService.findAllBySortOrder();
 
         return BaseResult.success(convert(models, 1));
     }

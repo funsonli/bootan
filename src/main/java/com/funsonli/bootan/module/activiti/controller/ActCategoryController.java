@@ -73,7 +73,7 @@ public class ActCategoryController extends BaseController<ActCategory, String> {
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
 
-        List<ActCategory> models = getService().findAll();
+        List<ActCategory> models = getService().findAllBySortOrder();
         return this.success(models);
     }
 
