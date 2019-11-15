@@ -17,8 +17,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableJpaAuditing
-@MapperScan("com.funsonli.bootan.module.*.*.mapper")
-@EntityScan({"com.funsonli.bootan.module.base.entity", "com.funsonli.bootan.module.my.entity"})
+@MapperScan("com.funsonli.bootan.module.*.mapper")
+@EntityScan("com.funsonli.bootan.module.*.entity")
 @EnableAsync
 @EnableScheduling
 @EnableAdminServer

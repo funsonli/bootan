@@ -1,4 +1,4 @@
-package ${entity.controllerPackage};
+package com.funsonli.bootan.module.activiti.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.funsonli.bootan.base.BaseController;
@@ -9,8 +9,8 @@ import com.funsonli.bootan.common.constant.CommonConstant;
 import com.funsonli.bootan.common.util.PageUtil;
 import com.funsonli.bootan.common.vo.PageVO;
 import com.funsonli.bootan.common.vo.SearchVO;
-import ${entity.entityPackage}.${entity.className};
-import ${entity.servicePackage}.${entity.className}Service;
+import com.funsonli.bootan.module.activiti.entity.ActCategory;
+import com.funsonli.bootan.module.activiti.service.ActCategoryService;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,23 +27,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ${entity.description}接口
+ * 工作流分类接口
  *
- * @author ${entity.author}
+ * @author Funsonli
  * @date 2019/10/31
  */
 @Slf4j
 @RestController
 @Transactional(rollbackFor = RuntimeException.class)
-@ApiModel("${entity.description}接口")
-@RequestMapping("/bootan/${entity.url}")
-public class ${entity.className}Controller extends BaseController<${entity.className}, String> {
+@ApiModel("工作流分类接口")
+@RequestMapping("/bootan/act-category")
+public class ActCategoryController extends BaseController<ActCategory, String> {
 
     @Autowired
-    private ${entity.className}Service modelService;
+    private ActCategoryService modelService;
 
     @Override
-    public ${entity.className}Service getService() {
+    public ActCategoryService getService() {
         return modelService;
     }
 
@@ -51,7 +51,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @GetMapping({"/", "index"})
     @ApiOperation("数据范围列表搜索分页")
     @BootanLog(value = "数据范围列表搜索分页", type = CommonConstant.LOG_TYPE_ACCESS)
-    public BaseResult index(@ModelAttribute ${entity.className} modelAttribute,
+    public BaseResult index(@ModelAttribute ActCategory modelAttribute,
                             @ModelAttribute SearchVO searchVO,
                             @ModelAttribute PageVO pageVO,
                             BindingResult result,
@@ -62,7 +62,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
             return this.error();
         }
 
-        Page<${entity.className}> page = getService().findByCondition(modelAttribute, searchVO, PageUtil.initPage(pageVO));
+        Page<ActCategory> page = getService().findByCondition(modelAttribute, searchVO, PageUtil.initPage(pageVO));
 
         return this.success(page);
     }
@@ -73,7 +73,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
 
-        List<${entity.className}> models = getService().findAll();
+        List<ActCategory> models = getService().findAll();
         return this.success(models);
     }
 
@@ -81,13 +81,13 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @PostMapping("/create")
     @ApiOperation("创建")
     @BootanLog(value = "创建", type = CommonConstant.LOG_TYPE_OPERATION)
-    public BaseResult create(@ModelAttribute ${entity.className} modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+    public BaseResult create(@ModelAttribute ActCategory modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 
         if (result.hasErrors()) {
             return this.error();
         }
 
-        ${entity.className} model = getService().save(modelAttribute);
+        ActCategory model = getService().save(modelAttribute);
         return this.success(model);
     }
 
@@ -95,14 +95,14 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @PostMapping("/update")
     @ApiOperation("更新")
     @BootanLog(value = "更新", type = CommonConstant.LOG_TYPE_OPERATION)
-    public BaseResult update(@ModelAttribute ${entity.className} modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+    public BaseResult update(@ModelAttribute ActCategory modelAttribute, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 
         if (result.hasErrors()) {
             return this.error();
         }
 
         if (StrUtil.isNotEmpty(request.getParameter("id"))) {
-            ${entity.className} model = getService().findById((String)request.getParameter("id"));
+            ActCategory model = getService().findById((String)request.getParameter("id"));
             if (null != model) {
 
                 String[] nullProperties = getNullProperties(modelAttribute);
@@ -139,7 +139,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "查看单个数据详情", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult view(@PathVariable String id) {
 
-        ${entity.className} model = getService().findById(id);
+        ActCategory model = getService().findById(id);
 
         if (null == model) {
             return this.error();
@@ -154,7 +154,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "搜索", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult search(@PathVariable String keyword) {
 
-        List<${entity.className}> models = getService().findByNameOrNameLike(keyword);
+        List<ActCategory> models = getService().findByNameOrNameLike(keyword);
 
         return this.success(new PageContent(models));
     }
@@ -165,7 +165,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "禁用", type = CommonConstant.LOG_TYPE_OPERATION)
     public BaseResult enable(@PathVariable String id) {
 
-        ${entity.className} model = getService().findById(id);
+        ActCategory model = getService().findById(id);
         if (null != model) {
             model.setStatus(CommonConstant.STATUS_ENABLE);
             getService().save(model);
@@ -180,7 +180,7 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @BootanLog(value = "启用", type = CommonConstant.LOG_TYPE_OPERATION)
     public BaseResult disable(@PathVariable String id) {
 
-        ${entity.className} model = getService().findById(id);
+        ActCategory model = getService().findById(id);
         if (null != model) {
             model.setStatus(CommonConstant.STATUS_DISABLE);
             getService().save(model);
@@ -192,11 +192,11 @@ public class ${entity.className}Controller extends BaseController<${entity.class
     @Override
     @PostMapping("/import-data")
     @ApiOperation("导入数据")
-    public BaseResult importData(@RequestBody List<${entity.className}> models) {
+    public BaseResult importData(@RequestBody List<ActCategory> models) {
 
         List<String> reasons = new ArrayList<>();
         int i = 0;
-        for (${entity.className} model : models) {
+        for (ActCategory model : models) {
             i++;
 
             if (null == model.getName()) {

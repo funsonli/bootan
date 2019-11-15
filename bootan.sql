@@ -164,6 +164,7 @@ CREATE TABLE `tbl_department` (
   `name` varchar(255) NOT NULL,
   `parent_name` varchar(255) NOT NULL default '',
   `description` varchar(255) NOT NULL default '',
+  `level` int(11) NOT NULL DEFAULT "0",
   `head` varchar(255) NOT NULL default '',
   `vice_head` varchar(255) NOT NULL default '',
   `is_parent` int(11) NOT NULL DEFAULT 0,
@@ -267,6 +268,119 @@ CREATE TABLE `tbl_quartz` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `tbl_act_model`;
+CREATE TABLE `tbl_act_model` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `model_key` varchar(255) NOT NULL DEFAULT "",
+  `version` int(11) NOT NULL DEFAULT 1,
+  `description` varchar(255) NOT NULL DEFAULT "",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_act_category`;
+CREATE TABLE `tbl_act_category` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `parent_id` varchar(255) NOT NULL default '0',
+  `description` varchar(255) NOT NULL DEFAULT "",
+  `level` int(11) NOT NULL DEFAULT "0",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_act_process`;
+CREATE TABLE `tbl_act_process` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `act_category_id` varchar(255) NOT NULL default "",
+  `deployment_id` varchar(255) NOT NULL DEFAULT "",
+  `description` varchar(255) NOT NULL DEFAULT "",
+  `diagram_name` varchar(255) NOT NULL DEFAULT "",
+  `latest` int(11) NOT NULL DEFAULT "1",
+  `process_key` varchar(255) NOT NULL DEFAULT "",
+  `version` int(11) NOT NULL DEFAULT "1",
+  `xml_name` varchar(255) NOT NULL DEFAULT "",
+  `business_table` varchar(255) NOT NULL DEFAULT "",
+  `route_name` varchar(255) NOT NULL DEFAULT "",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_act_node`;
+CREATE TABLE `tbl_act_node` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `relate_id` varchar(255) NOT NULL DEFAULT "",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_act_business`;
+CREATE TABLE `tbl_act_business` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `process_definition_id` varchar(255) NOT NULL DEFAULT "",
+  `process_instance_id` varchar(255) NOT NULL DEFAULT "",
+  `result` int(11) NOT NULL DEFAULT "1",
+  `table_id` varchar(255) NOT NULL DEFAULT "",
+  `user_id` varchar(255) NOT NULL DEFAULT "",
+  `applied_at` timestamp NOT NULL DEFAULT "0000-00-00 00:00:00",
+  `is_history` int(11) NOT NULL DEFAULT "0",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tbl_leave`;
+CREATE TABLE `tbl_leave` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT "",
+  `description` varchar(255) NOT NULL DEFAULT "",
+  `attachment` text,
+  `started_at` timestamp NOT NULL DEFAULT "0000-00-00 00:00:00",
+  `ended_at` timestamp NOT NULL DEFAULT "0000-00-00 00:00:00",
+  `duration` int(11) NOT NULL DEFAULT "0",
+  `type` int(11) NOT NULL DEFAULT "1",
+  `sort_order` int(11) NOT NULL DEFAULT "50",
+  `status` int(11) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` varchar(255) NOT NULL DEFAULT '',
+  `updated_by` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 INSERT INTO `tbl_permission` VALUES ('379506240705630261', '0', 'bootan', '', '', '', 'Bootan系统', 'ios-aperture', '0', '', '', '1', '50', '1', '2019-09-17 04:00:23', '2019-10-10 03:14:34', '', '');
 INSERT INTO `tbl_permission` VALUES ('379516240705630351', '379506240705630261', 'user-index', '', 'Main', '/user', '系统管理', 'ios-settings', '1', '', '', '1', '50', '1', '2019-09-17 04:05:54', '2019-10-10 15:37:22', '', '');
@@ -316,11 +430,11 @@ INSERT INTO `tbl_dict_data` VALUES ('372655421162139624', '372605421162139653', 
 INSERT INTO `tbl_dict_data` VALUES ('372655421162139625', '372605421162139653', '新增权限(update)', 'update', '1', '52', '1', '2019-09-17 22:46:47', '2019-09-22 23:34:14', '', '');
 INSERT INTO `tbl_dict_data` VALUES ('372655421162139626', '372605421162139653', '删除权限(delete)', 'delete', '1', '53', '1', '2019-09-17 22:46:47', '2019-09-22 23:34:14', '', '');
 
-INSERT INTO `tbl_department` VALUES ('372655422162139231', '0', '技术部', '一级部门', '', '', '', '1', '1', '50', '1', '2019-09-16 20:29:30', '2019-09-26 05:10:37', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162139232', '372655422162139231', 'vue', '技术部', '', '', '', '0', '1', '50', '1', '2019-09-16 20:30:19', '2019-09-28 22:35:29', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162139233', '372655422162139231', 'java', '技术部', '', '', '', '0', '1', '50', '1', '2019-09-16 20:30:19', '2019-09-28 22:35:29', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162149256', '0', '销售部', '一级部门', '', '', '', '1', '1', '50', '1', '2019-09-16 20:38:21', '2019-09-26 05:10:37', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162153215', '372655422162149256', '销售1部', '销售部', '', '', '', '0', '1', '50', '1', '2019-09-16 20:38:37', '2019-09-26 05:41:28', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162153216', '372655422162149256', '销售2部', '销售部', '', '', '', '0', '1', '50', '1', '2019-09-16 20:38:42', '2019-09-26 05:41:28', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162156722', '0', '行政部', '一级部门', '', '', '', '0', '1', '50', '1', '2019-09-16 20:39:06', '2019-09-26 06:23:12', '', '');
-INSERT INTO `tbl_department` VALUES ('372655422162156723', '0', '财务部', '一级部门', '', '', '', '0', '1', '50', '1', '2019-09-17 03:05:09', '2019-09-26 05:10:37', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162139231', '0', '技术部', '一级部门', '', '0', '', '', '1', '1', '50', '1', '2019-09-16 20:29:30', '2019-09-26 05:10:37', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162139232', '372655422162139231', 'vue', '技术部', '', '1', '', '', '0', '1', '50', '1', '2019-09-16 20:30:19', '2019-09-28 22:35:29', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162139233', '372655422162139231', 'java', '技术部', '', '1', '', '', '0', '1', '50', '1', '2019-09-16 20:30:19', '2019-09-28 22:35:29', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162149256', '0', '销售部', '一级部门', '', '0', '', '', '1', '1', '50', '1', '2019-09-16 20:38:21', '2019-09-26 05:10:37', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162153215', '372655422162149256', '销售1部', '销售部', '', '1', '', '', '0', '1', '50', '1', '2019-09-16 20:38:37', '2019-09-26 05:41:28', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162153216', '372655422162149256', '销售2部', '销售部', '', '1', '', '', '0', '1', '50', '1', '2019-09-16 20:38:42', '2019-09-26 05:41:28', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162156722', '0', '行政部', '一级部门', '', '0', '', '', '0', '1', '50', '1', '2019-09-16 20:39:06', '2019-09-26 06:23:12', '', '');
+INSERT INTO `tbl_department` VALUES ('372655422162156723', '0', '财务部', '一级部门', '', '0', '', '', '0', '1', '50', '1', '2019-09-17 03:05:09', '2019-09-26 05:10:37', '', '');

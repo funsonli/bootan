@@ -24,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class BootanGenerator {
 
-    private static String iniName = "template.ini";
+    private static String iniName = "act_category.ini";
 
     private static String[] existField = {"serialVersionUID", "id", "name", "type", "sortOrder", "createdAt", "createdBy", "updatedAt", "updatedBy"};
 
@@ -116,6 +116,14 @@ public class BootanGenerator {
                     packagePath = conf[1].trim();
                 }
             }
+
+            entityPackage =  packagePath + "entity";
+            daoPackage = packagePath + "dao";
+            mapperPackage = packagePath + "mapper";
+            servicePackage = packagePath + "service";
+            serviceImplPackage = packagePath + "service.impl";
+            controllerPackage = packagePath + "controller";
+
         } catch (Exception e) {
             log.error(e.toString());
         }
