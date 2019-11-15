@@ -24,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class BootanGenerator {
 
-    private static String iniName = "act_category.ini";
+    private static String iniName = "template.ini";
 
     private static String[] existField = {"serialVersionUID", "id", "name", "type", "sortOrder", "createdAt", "createdBy", "updatedAt", "updatedBy"};
 
