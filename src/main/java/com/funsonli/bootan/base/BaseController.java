@@ -79,9 +79,7 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     @ApiOperation("返回所有数据，需谨慎")
     @BootanLog(value = "返回所有数据", type = CommonConstant.LOG_TYPE_ACCESS)
     public BaseResult all() {
-
-        List<E> models = getService().findAllBySortOrder();
-        return this.success(models);
+        return exportData();
     }
 
     @PostMapping("/save")
@@ -188,8 +186,8 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     }
 
     @PostMapping("/enable/{id}")
-    @ApiOperation("禁用")
-    @BootanLog(value = "禁用", type = CommonConstant.LOG_TYPE_OPERATION)
+    @ApiOperation("启用")
+    @BootanLog(value = "启用", type = CommonConstant.LOG_TYPE_OPERATION)
     public BaseResult enable(@PathVariable ID id) {
 
         E model = getService().findById(id);
@@ -202,8 +200,8 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
     }
 
     @PostMapping("/disable/{id}")
-    @ApiOperation("启用")
-    @BootanLog(value = "启用", type = CommonConstant.LOG_TYPE_OPERATION)
+    @ApiOperation("禁用")
+    @BootanLog(value = "禁用", type = CommonConstant.LOG_TYPE_OPERATION)
     public BaseResult disable(@PathVariable ID id) {
 
         E model = getService().findById(id);
@@ -245,6 +243,15 @@ public abstract class BaseController<E extends BaseEntity, ID extends Serializab
         }
 
         return this.success(message.toString());
+    }
+
+    @GetMapping("/export-data")
+    @ApiOperation("导出所有，权限控制")
+    @BootanLog(value = "导出所有，权限控制", type = CommonConstant.LOG_TYPE_ACCESS)
+    public BaseResult exportData() {
+
+        List<E> models = getService().findAllBySortOrder();
+        return this.success(models);
     }
 
     protected BaseResult success(Object data) {

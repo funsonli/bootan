@@ -11,6 +11,10 @@ export const api${entity.className}View = (id, params) => {
   return axios.getRequest('/${entity.url}/view/' + id, params)
 }
 
+export const api${entity.className}Search = (keyword, params) => {
+  return axios.getRequest('/${entity.url}/search/' + keyword, params)
+}
+
 export const api${entity.className}Save = (params) => {
   return axios.postRequest('/${entity.url}/save', params)
 }
@@ -29,6 +33,10 @@ export const api${entity.className}Delete = (ids, params) => {
 
 export const api${entity.className}ImportData = (params) => {
   return axios.importRequest('/${entity.url}/import-data', params)
+}
+
+export const api${entity.className}ExportData = (params) => {
+  return axios.getRequest('/${entity.url}/export-data', params)
 }
 
 export const api${entity.className}Enable = (id, params) => {
@@ -250,7 +258,9 @@ import {
   api${entity.className}Update,
   api${entity.className}Delete,
   api${entity.className}All,
+  api${entity.className}Search,
   api${entity.className}ImportData,
+  api${entity.className}ExportData,
   api${entity.className}Enable,
   api${entity.className}Disable
 } from '@/api/index'
@@ -768,7 +778,7 @@ for(entry in mapField){
         this.exportType = 'all'
         this.exportModalVisible = true
         this.exportTitle = '确认导出全部 ' + this.total + ' 条数据'
-        api${entity.className}All().then(res => {
+        api${entity.className}ExportData().then(res => {
           if (parseInt(res.status) === 200 && parseInt(res.data.code) === 200) {
             this.exportDataList = res.data.data
           }
