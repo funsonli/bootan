@@ -23,6 +23,6 @@ import java.io.IOException;
 public class AuthDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        CommonUtil.responseOut(httpServletResponse, BaseResult.ret(403, "No Auth", null), 403);
+        CommonUtil.responseOut(httpServletResponse, BaseResult.ret(403, "没有权限，请联系管理员", null));
     }
 }

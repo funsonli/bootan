@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().exceptionHandling().accessDeniedHandler(authDeniedHandler)
 
                 .and()
+                //自定义权限过滤器，permission中过滤器
                 .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 .addFilter(new AuthFilter(authenticationManager(), stringRedisTemplate));
 
