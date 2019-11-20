@@ -4,7 +4,9 @@ import com.funsonli.bootan.base.BaseController;
 import com.funsonli.bootan.base.BaseResult;
 import com.funsonli.bootan.base.BaseService;
 import com.funsonli.bootan.common.constant.CommonConstant;
+import com.funsonli.bootan.common.util.CommonUtil;
 import com.funsonli.bootan.module.base.entity.Permission;
+import com.funsonli.bootan.module.base.entity.User;
 import com.funsonli.bootan.module.base.service.PermissionService;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -127,11 +129,18 @@ public class PermissionController extends BaseController<Permission, String> {
 
     @GetMapping("/menu-list")
     @ApiOperation("前端用户菜单")
-    public BaseResult menuList() {
-        List<Permission> models = modelService.findByUserId(bootanUser.me().getId());
-        log.info(models.toString());
+    public BaseResult menuList(HttpServletResponse response) {
+        User user = bootanUser.me();
 
-        return BaseResult.success(convert(models, 2));
+        if (user != null) {
+            List<Permission> models = modelService.findByUserId(bootanUser.me().getId());
+            log.info(models.toString());
+
+            return BaseResult.success(convert(models, 2));
+        } else {
+            CommonUtil.responseOut(response, BaseResult.error(401, "请登录"));
+            return BaseResult.error();
+        }
     }
 
     private List<Permission> convert(List<Permission> models, int type) {

@@ -47,9 +47,9 @@ public class AuthLogoutHandler implements LogoutSuccessHandler {
                 System.out.println(redisTemplate.delete(CommonConstant.REDIS_USER_TOKEN + username));
             }
 
-            CommonUtil.responseOut(httpServletResponse, BaseResult.ret(200, "注销成功", null), 200);
+            CommonUtil.responseOut(httpServletResponse, BaseResult.ret(200, "注销成功", null));
         } else {
-            CommonUtil.responseOut(httpServletResponse, BaseResult.ret(401, "请先登录", null), 401);
+            CommonUtil.responseOut(httpServletResponse, BaseResult.ret(401, "请先登录", null));
         }
     }
 }

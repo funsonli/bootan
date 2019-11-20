@@ -51,13 +51,13 @@ public class AuthFilter extends BasicAuthenticationFilter {
         }
 
         if (StrUtil.isBlank(accessToken)) {
-            CommonUtil.responseOut(response, BaseResult.error(401, "请登录"), 401);
+            CommonUtil.responseOut(response, BaseResult.error(401, "请登录"));
             return;
         }
 
         String str = stringRedisTemplate.opsForValue().get(CommonConstant.REDIS_TOKEN_DETAIL + accessToken);
         if (StrUtil.isBlank(str)) {
-            CommonUtil.responseOut(response, BaseResult.error(401, "登录已经失效，请重新登录"), 401);
+            CommonUtil.responseOut(response, BaseResult.error(401, "登录已经失效，请重新登录"));
             return;
         }
 
