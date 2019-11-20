@@ -33,16 +33,20 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         if (null == mapAttr || 0 == mapAttr.size()) {
             loadAuthUrls();
         }
+        log.debug("auth map:" + mapAttr.toString());
 
         String url = ((FilterInvocation) o).getRequestUrl();
         if (url.indexOf("\\?") > 0) {
             url = url.substring(0, url.indexOf("?") - 1);
         }
+        log.debug("auth request url: " + url);
         PathMatcher pathMatcher = new AntPathMatcher();
         Iterator<String> iterator = mapAttr.keySet().iterator();
         while (iterator.hasNext()) {
             String authUrl = iterator.next();
+            log.debug("auth authUrl" + authUrl);
             if (StrUtil.isNotBlank(authUrl) && pathMatcher.match(authUrl, url)) {
+                log.debug("match authUrl " + authUrl);
                 return mapAttr.get(authUrl);
             }
         }
@@ -60,21 +64,21 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         return true;
     }
 
-    public void loadAuthUrls() {
+    private void loadAuthUrls() {
         mapAttr = new HashMap<>(16);
         Collection<ConfigAttribute> configAttributes;
 
-        List<Permission> permissions = permissionService.findByTypeAndStatusOrderBySortOrder(CommonConstant.TYPE_DEFAULT, CommonConstant.STATUS_ENABLE);
+        List<Permission> permissions = permissionService.findByLevelAndStatusOrderBySortOrder(CommonConstant.PERMISSION_LEVEL_3, CommonConstant.STATUS_ENABLE);
 
         for (Permission permission : permissions) {
-            if (StrUtil.isNotBlank(permission.getName()) && StrUtil.isNotBlank(permission.getPath())) {
+            if (StrUtil.isNotBlank(permission.getTitle()) && StrUtil.isNotBlank(permission.getPath())) {
                 configAttributes = new ArrayList<>();
-                ConfigAttribute configAttribute = new SecurityConfig(permission.getName());
+                ConfigAttribute configAttribute = new SecurityConfig(permission.getTitle());
 
                 configAttributes.add(configAttribute);
                 mapAttr.put(permission.getPath(), configAttributes);
             }
         }
-
+        log.debug("auth permissions " + permissions.toString());
     }
 }

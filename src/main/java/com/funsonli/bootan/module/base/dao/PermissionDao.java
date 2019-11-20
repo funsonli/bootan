@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface PermissionDao extends BaseDao<Permission,String> {
 
-    List<Permission> findByTypeAndStatusOrderBySortOrder(Integer type, Integer status);
+    List<Permission> findByLevelAndStatusOrderBySortOrder(Integer type, Integer status);
 
     List<Permission> findByNameOrNameLikeOrderBySortOrderAsc(String keyword, String keyword1);
 }

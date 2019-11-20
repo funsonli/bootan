@@ -122,8 +122,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> findByTypeAndStatusOrderBySortOrder(Integer type, Integer status) {
-        return modelDao.findByTypeAndStatusOrderBySortOrder(type, status);
+    public List<Permission> findByLevelAndStatusOrderBySortOrder(Integer type, Integer status) {
+        return modelDao.findByLevelAndStatusOrderBySortOrder(type, status);
     }
 
     @Override

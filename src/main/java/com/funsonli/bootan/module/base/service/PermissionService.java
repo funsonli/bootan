@@ -27,7 +27,7 @@ public interface PermissionService extends BaseService<Permission, String> {
     @Override
     Permission beforeSave(Permission entity);
 
-    List<Permission> findByTypeAndStatusOrderBySortOrder(Integer type, Integer status);
+    List<Permission> findByLevelAndStatusOrderBySortOrder(Integer type, Integer status);
 
     @Override
     List<Permission> findByNameOrNameLike(String keyword);

@@ -19,6 +19,7 @@ import java.util.List;
  * @date 2019/10/31
  */
 public class SecurityUserDetail extends User implements UserDetails {
+
     private static final long serialVersionUID = 1L;
 
     public SecurityUserDetail(User user) {
@@ -38,8 +39,8 @@ public class SecurityUserDetail extends User implements UserDetails {
 
         if (null != permissions && 0 < permissions.size()) {
             for (Permission v : permissions) {
-                if (v.getName().length() > 0) {
-                    authorities.add(new SimpleGrantedAuthority(v.getName()));
+                if (v.getTitle().length() > 0) {
+                    authorities.add(new SimpleGrantedAuthority(v.getTitle()));
                 }
             }
         }

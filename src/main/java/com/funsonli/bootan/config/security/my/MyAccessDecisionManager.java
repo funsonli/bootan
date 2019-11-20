@@ -23,7 +23,7 @@ import java.util.Iterator;
 public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-
+        log.debug("auth configAttributes " + configAttributes.toString());
         if (null == configAttributes) {
             return;
         }
@@ -32,12 +32,13 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         while (iterator.hasNext()){
             ConfigAttribute c = iterator.next();
             String need = c.getAttribute();
+            log.debug("auth need: " + need + " grant auths: " + authentication.getAuthorities().toString());
             for (GrantedAuthority v : authentication.getAuthorities()) {
                 if (need.trim().equals(v.getAuthority())) {
                     return;
                 }
             }
-        } throw new AccessDeniedException("No Auth");
+        } throw new AccessDeniedException("没有访问权限，请联系管理员");
     }
 
     @Override

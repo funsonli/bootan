@@ -40,7 +40,6 @@ public class AuthLogoutHandler implements LogoutSuccessHandler {
 
         if (null != accessToken) {
             String tokenDetail = redisTemplate.opsForValue().get(CommonConstant.REDIS_TOKEN_DETAIL + accessToken);
-            System.out.println(redisTemplate.opsForValue().get(CommonConstant.REDIS_TOKEN_DETAIL + accessToken));
 
             if (null != tokenDetail) {
                 TokenUser tokenUser = new Gson().fromJson(tokenDetail, TokenUser.class);
