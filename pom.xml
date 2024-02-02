@@ -219,7 +219,7 @@
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
-            <version>2.9.10</version>
+            <version>3.15.13.RELEASE</version>
         </dependency>
 
         <!-- API接口文档 -->
